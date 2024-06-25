@@ -54,7 +54,12 @@ SELECT Restaurant, Food_type
 FROM swiggy
 WHERE LENGTH(Food_type) - LENGTH(REPLACE(Food_type, ',', '')) > 2;
 
--- // Q9. Which restaurants have Minimum Price and Maximum Avg_Rating in each City?
+-- // Q9. Which restaurants have Maximum Avg_Rating and Minimum Price in each City?
+SELECT Restaurant,City, MAX(Avg_ratings) AS max_rating, MIN(Price) AS min_price 
+FROM swiggy
+GROUP BY city 
+ORDER BY max_rating DESC,min_price;
+
  
 
 
