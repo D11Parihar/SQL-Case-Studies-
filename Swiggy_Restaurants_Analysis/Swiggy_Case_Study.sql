@@ -3,7 +3,7 @@
 -- Adding Surrogate Key since there is no column to use as a primary key
 ALTER TABLE swiggy ADD sr_no INT AUTO_INCREMENT FIRST, ADD PRIMARY KEY (sr_no);
 
--- Renaming Column Name to Avoid Conflicts
+-- Renaming Column Name 'Avg ratings' to Avoid Conflicts
 ALTER TABLE swiggy CHANGE `Avg ratings` `Avg_ratings` DECIMAL(2,1) DEFAULT NULL;
 
 
@@ -59,8 +59,19 @@ SELECT Restaurant,City, MAX(Avg_ratings) AS max_rating, MIN(Price) AS min_price
 FROM swiggy
 GROUP BY city 
 ORDER BY max_rating DESC,min_price;
-
  
+-- // Q10. Which are the top 5 Restaurants in Andheri Area?
+SELECT Restaurant, Address, Avg_ratings 
+FROM swiggy 
+WHERE Total_ratings > (SELECT AVG(Total_ratings) FROM swiggy) AND Area like "Andheri%" 
+ORDER BY Avg_ratings DESC 
+LIMIT 5;
+
+-- // Q11. How many Restaurants each city have?
+SELECT city, COUNT(*) AS Restaurant_count 
+FROM swiggy 
+GROUP BY City 
+ORDER BY Restaurant_count DESC 
 
 
 
